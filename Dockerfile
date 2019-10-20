@@ -12,7 +12,7 @@ RUN yum install -y epel-release \
 	&& yum install -y which sudo python2-pip tmpwatch unzip git msmtp \
 	&& yum install -y httpd24u \
 	&& yum install -y postgresql10 \
-	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode \
+	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
 	&& yum install -y php73-php-pecl-mongodb \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
