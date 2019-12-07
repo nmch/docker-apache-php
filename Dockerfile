@@ -7,14 +7,14 @@ RUN yum install -y epel-release \
 	&& yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
 	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
 	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
-	&& yum-config-manager --enable remi,remi-php73 \
+	&& yum-config-manager --enable remi,remi-php74 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python2-pip tmpwatch unzip git msmtp jq ghostscript \
 	&& yum install -y httpd24u \
 	&& yum install -y postgresql12 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
-	&& yum install -y php73-php-pecl-mongodb \
+	&& yum install -y php74-php-pecl-mongodb \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
 	&& yum update -y \
