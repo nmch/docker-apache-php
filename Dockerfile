@@ -10,7 +10,7 @@ RUN yum install -y epel-release \
 	&& yum-config-manager --enable remi,remi-php73 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
-	&& yum install -y which sudo python2-pip tmpwatch unzip git msmtp jq \
+	&& yum install -y which sudo python2-pip tmpwatch unzip git msmtp jq ghostscript \
 	&& yum install -y httpd24u \
 	&& yum install -y postgresql12 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
