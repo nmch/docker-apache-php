@@ -10,7 +10,7 @@ RUN yum install -y epel-release \
 	&& yum-config-manager --enable remi,remi-php74 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
-	&& yum install -y which sudo python2-pip tmpwatch unzip git msmtp jq ghostscript \
+	&& yum install -y which sudo python2-pip tmpwatch zip unzip git msmtp jq ghostscript \
 	&& yum install -y httpd24u \
 	&& yum install -y postgresql12 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
@@ -23,5 +23,6 @@ RUN yum install -y epel-release \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum \
 	&& pip install --upgrade pip awscli \
+	&& chown apache:apache /var/lib/php/session \
 	&& curl -L --insecure https://github.com/odise/go-cron/releases/download/v0.0.7/go-cron-linux.gz | zcat > /usr/local/bin/go-cron \
 	&& chmod 755 /usr/local/bin/go-cron
