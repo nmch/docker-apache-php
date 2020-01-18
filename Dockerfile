@@ -23,5 +23,6 @@ RUN yum install -y epel-release \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum \
 	&& pip install --upgrade pip awscli \
+	&& chown apache:apache /var/lib/php/session \
 	&& curl -L --insecure https://github.com/odise/go-cron/releases/download/v0.0.7/go-cron-linux.gz | zcat > /usr/local/bin/go-cron \
 	&& chmod 755 /usr/local/bin/go-cron
