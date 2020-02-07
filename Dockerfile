@@ -26,3 +26,5 @@ RUN yum install -y epel-release \
 	&& chown apache:apache /var/lib/php/session \
 	&& curl -L --insecure https://github.com/odise/go-cron/releases/download/v0.0.7/go-cron-linux.gz | zcat > /usr/local/bin/go-cron \
 	&& chmod 755 /usr/local/bin/go-cron
+
+ADD --chown=webapp:webapp https://browscap.org/stream?q=PHP_BrowsCapINI /usr/local/etc/browscap.ini
