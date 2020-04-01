@@ -17,6 +17,7 @@ RUN yum install -y epel-release \
 	&& yum install -y php73-php-pecl-mongodb \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
+	&& yum install -y https://github.com/dshearer/jobber/releases/download/v1.4.1/jobber-1.4.1-1.el8.x86_64.rpm \
 	&& yum update -y \
 	&& sed -i -e '/override_install_langs/s/$/,ja_JP.utf8/g' /etc/yum.conf \
 	&& yum -y reinstall glibc-common \
