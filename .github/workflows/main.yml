@@ -14,5 +14,5 @@ jobs:
       - run: docker build . -t ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}
       - run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u ${GITHUB_ACTOR} --password-stdin
       - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}
-      - run: docker build . -t ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev
+      - run: docker build . -t ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev -f Dockerfile-dev
       - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev
