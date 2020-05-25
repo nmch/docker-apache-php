@@ -4,14 +4,14 @@ RUN yum install -y epel-release \
 	&& curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
 	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
 	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
-	&& yum install -y https://centos7.iuscommunity.org/ius-release.rpm \
+	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
 	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
 	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	&& yum-config-manager --enable remi,remi-php74 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python2-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
-	&& yum install -y httpd24u \
+	&& yum install -y httpd24u httpd24u-mod_ssl \
 	&& yum install -y postgresql12 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
 	&& yum install -y php74-php-pecl-mongodb \
