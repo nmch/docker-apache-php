@@ -14,7 +14,7 @@ RUN yum install -y epel-release \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
 	&& yum install -y postgresql12 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
-	&& yum install -y php-pecl-mongodb php-pecl-redis5 \
+	&& yum install -y php-pecl-mongodb php-pecl-redis5 php-pecl-oauth \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
 	&& yum install -y https://github.com/dshearer/jobber/releases/download/v1.4.1/jobber-1.4.1-1.el8.x86_64.rpm \
