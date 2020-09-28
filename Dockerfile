@@ -12,7 +12,7 @@ RUN yum install -y epel-release \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python2-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
-	&& yum install -y postgresql12 \
+	&& yum install -y postgresql13 \
 	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
 	&& yum install -y php-pecl-mongodb php-pecl-redis5 php-pecl-oauth \
 	&& yum install -y nkf qpdf \
