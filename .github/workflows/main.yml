@@ -1,6 +1,6 @@
 name: docker-apache-php
 
-on: [ "push" ]
+on: [ "push", "workflow_dispatch" ]
 
 jobs:
   build:
