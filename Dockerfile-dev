@@ -6,5 +6,5 @@ RUN yum install -y php-pecl-xdebug \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum \
 	&& yarn global add apidoc apidoc-swagger redoc-cli \
-	&& wget -q https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.0.0/phpDocumentor.phar -O /usr/local/bin/phpDocumentor \
+	&& wget -q https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.1.0/phpDocumentor.phar -O /usr/local/bin/phpDocumentor \
 	&& chmod 755 /usr/local/bin/phpDocumentor
