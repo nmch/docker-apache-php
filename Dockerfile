@@ -1,7 +1,7 @@
 FROM centos:7
 
 RUN yum install -y epel-release \
-	&& curl -sL https://rpm.nodesource.com/setup_12.x | bash - \
+	&& curl -sL https://rpm.nodesource.com/setup_14.x | bash - \
 	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
 	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
 	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
