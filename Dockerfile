@@ -1,12 +1,26 @@
 FROM centos:7
+ARG TARGETARCH
+ENV ARCH "${TARGETARCH}"
 
 RUN yum install -y epel-release \
 	&& curl -sL https://rpm.nodesource.com/setup_14.x | bash - \
 	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
 	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
 	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
-	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
-	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
+	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+RUN set -xe ; \
+    base_url="https://download.postgresql.org/pub/repos/yum/reporpms" ; \
+    case $ARCH in \
+        amd64) \
+            rpm -i "${base_url}/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+        arm64) \
+            rpm -i "${base_url}/EL-8-aarch64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+        *) \
+            exit 1 ;; \
+    esac ; \
+
+RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	&& yum-config-manager --enable remi,remi-php80 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
