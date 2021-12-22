@@ -1,30 +1,22 @@
 FROM centos:7
 
 ARG TARGETARCH
-ENV ARCH "${TARGETARCH}"
 
 RUN yum install -y epel-release \
 	&& curl -sL https://rpm.nodesource.com/setup_14.x | bash - \
 	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
-	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
-	&& yum install -y https://repo.ius.io/ius-release-el7.rpm
+	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 RUN set -xe ; \
-    pgdg_base_url="https://download.postgresql.org/pub/repos/yum/reporpms" ; \
-    wkhtmltox_base_url="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7" ; \
-    case $ARCH in \
-        amd64) \
-            rpm -i "${pgdg_base_url}/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
-            rpm -i "${wkhtmltox_base_url}.x86_64.rpm" ;; \
-        arm64) \
-            rpm -i "${pgdg_base_url}/EL-8-aarch64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
-            rpm -i "${wkhtmltox_base_url}.aarch64.rpm" ;; \
-        *) \
-            exit 1 ;; \
-    esac ;
-
-RUN yum-config-manager --enable remi,remi-php80 \
+    case "${TARGETARCH}" in \
+        amd64) ARCH="x86_64" ;; \
+        arm64) ARCH="aarch64" ;; \
+        *) exit 2 ;; \
+    esac ; \
+	yum-config-manager --enable remi,remi-php80 \
 	&& yum-config-manager --disable remi-safe \
+    && yum install -y "https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-${ARCH}/pgdg-redhat-repo-latest.noarch.rpm" \
+    && yum install -y "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos7.${ARCH}.rpm" \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
