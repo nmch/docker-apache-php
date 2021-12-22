@@ -10,18 +10,20 @@ RUN yum install -y epel-release \
 	&& yum install -y https://repo.ius.io/ius-release-el7.rpm
 
 RUN set -xe ; \
-    base_url="https://download.postgresql.org/pub/repos/yum/reporpms" ; \
+    pgdg_base_url="https://download.postgresql.org/pub/repos/yum/reporpms" ; \
+    wkhtmltox_base_url="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7" ; \
     case $ARCH in \
         amd64) \
-            rpm -i "${base_url}/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+            rpm -i "${pgdg_base_url}/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+            rpm -i "${wkhtmltox_base_url}.x86_64.rpm" ;; \
         arm64) \
-            rpm -i "${base_url}/EL-8-aarch64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+            rpm -i "${pgdg_base_url}/EL-8-aarch64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
+            rpm -i "${wkhtmltox_base_url}.aarch64.rpm" ;; \
         *) \
             exit 1 ;; \
     esac ;
 
-RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
-	&& yum-config-manager --enable remi,remi-php80 \
+RUN yum-config-manager --enable remi,remi-php80 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
@@ -31,7 +33,6 @@ RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/
 	&& yum install -y php-pecl-mongodb php-pecl-redis5 php-pecl-oauth php-pecl-uuid \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
-	&& yum install -y https://github.com/dshearer/jobber/releases/download/v1.4.4/jobber-1.4.4-1.el8.x86_64.rpm \
 	&& yum update -y \
 	&& sed -i -e '/override_install_langs/s/$/,ja_JP.utf8/g' /etc/yum.conf \
 	&& yum -y reinstall glibc-common \
