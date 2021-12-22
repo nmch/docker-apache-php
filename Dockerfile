@@ -39,8 +39,6 @@ RUN yum-config-manager --enable remi,remi-php80 \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum \
 	&& pip3 install awscli \
-	&& chown apache:apache /var/lib/php/session \
-	&& curl --location --silent --show-error https://github.com/odise/go-cron/releases/download/v0.0.7/go-cron-linux.gz | zcat > /usr/local/bin/go-cron \
-	&& chmod 755 /usr/local/bin/go-cron
+	&& chown apache:apache /var/lib/php/session
 
 ADD --chown=500:500 https://browscap.org/stream?q=PHP_BrowsCapINI /usr/local/etc/browscap.ini
