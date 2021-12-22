@@ -18,7 +18,7 @@ RUN set -xe ; \
             rpm -i "${base_url}/EL-8-aarch64/pgdg-redhat-repo-latest.noarch.rpm" ;; \
         *) \
             exit 1 ;; \
-    esac ; \
+    esac ;
 
 RUN yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	&& yum-config-manager --enable remi,remi-php80 \
