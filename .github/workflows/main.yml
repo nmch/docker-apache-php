@@ -15,7 +15,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${GITHUB_ACTOR}
+          username: ${{ env.GITHUB_ACTOR }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
