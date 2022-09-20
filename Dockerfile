@@ -1,31 +1,25 @@
-FROM centos:7
+FROM centos:6
 
-RUN yum install -y epel-release \
-	&& curl -sL https://rpm.nodesource.com/setup_14.x | bash - \
-	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
-	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
-	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
-	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
-	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
-	&& yum-config-manager --enable remi,remi-php80 \
-	&& yum-config-manager --disable remi-safe \
-	&& yum install -y nodejs yarn \
-	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
-	&& yum install -y httpd24u httpd24u-mod_ssl \
-	&& yum install -y postgresql14 \
-	&& yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-http php-pear-XML-RPC php-pecl-zip php-pear-Mail-mimeDecode php-pecl-memcached \
-	&& yum install -y php-pecl-mongodb php-pecl-redis5 php-pecl-oauth php-pecl-uuid \
-	&& yum install -y nkf qpdf \
-	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
-	&& yum install -y https://github.com/dshearer/jobber/releases/download/v1.4.4/jobber-1.4.4-1.el8.x86_64.rpm \
-	&& yum update -y \
-	&& sed -i -e '/override_install_langs/s/$/,ja_JP.utf8/g' /etc/yum.conf \
-	&& yum -y reinstall glibc-common \
-	&& yum clean all \
-	&& rm -rf /var/cache/yum \
-	&& pip3 install awscli \
-	&& chown apache:apache /var/lib/php/session \
-	&& curl --location --silent --show-error https://github.com/odise/go-cron/releases/download/v0.0.7/go-cron-linux.gz | zcat > /usr/local/bin/go-cron \
-	&& chmod 755 /usr/local/bin/go-cron
+RUN groupadd -g 500 webapp \
+	&& useradd -u 500 -g 500 webapp
 
-ADD --chown=500:500 https://browscap.org/stream?q=PHP_BrowsCapINI /usr/local/etc/browscap.ini
+RUN sed -i "s|#baseurl=|baseurl=|g" /etc/yum.repos.d/CentOS-Base.repo
+RUN sed -i "s|mirrorlist=|#mirrorlist=|g" /etc/yum.repos.d/CentOS-Base.repo
+RUN sed -i "s|http://mirror\.centos\.org/centos/\$releasever|https://vault\.centos\.org/6.10|g" /etc/yum.repos.d/CentOS-Base.repo
+
+RUN yum install -y epel-release
+RUN yum install -y https://download.postgresql.org/pub/repos/yum/12/redhat/rhel-6-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+RUN yum install -y which sudo python2-pip yum-utils msmtp
+RUN yum-config-manager --disable pgdg94
+RUN yum-config-manager --disable pgdg95
+RUN yum-config-manager --disable pgdg96
+RUN yum-config-manager --disable pgdg10
+RUN yum-config-manager --disable pgdg11
+RUN yum-config-manager --disable pgdg12
+RUN yum install -y --enablerepo=pgdg12 postgresql12
+RUN yum install -y nkf qpdf ImageMagick
+RUN yum install -y php php-mbstring php-soap php-gd php-opcache php-tidy php-mcrypt php-xmlrpc php-bcmath php-pgsql php-pecl-imagick php-pecl-memcached php-pecl-memcache php-pecl-http
+RUN yum install -y php-pecl-memcached php-pecl-memcache
+RUN pear channel-discover pear.ethna.jp
+RUN pear update-channels
+RUN pear install -a ethna/ethna
