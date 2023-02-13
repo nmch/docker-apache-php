@@ -6,17 +6,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - run: docker build . -t ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}
+        run: |
+          echo "BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+      - run: docker build . -t ${GITHUB_REPOSITORY}:${BRANCH}
       - run: echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u ${GITHUB_ACTOR} --password-stdin
-      - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}
-      - run: docker tag ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }} ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-${GITHUB_RUN_NUMBER}
-      - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-${GITHUB_RUN_NUMBER}
-      - run: docker build . -t ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev -f Dockerfile-dev
-      - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev
-      - run: docker tag ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev-${GITHUB_RUN_NUMBER}
-      - run: docker push ${GITHUB_REPOSITORY}:${{ steps.extract_branch.outputs.branch }}-dev-${GITHUB_RUN_NUMBER}
+      - run: docker push ${GITHUB_REPOSITORY}:${BRANCH}
+      - run: docker tag ${GITHUB_REPOSITORY}:${BRANCH} ${GITHUB_REPOSITORY}:${BRANCH}-${GITHUB_RUN_NUMBER}
+      - run: docker push ${GITHUB_REPOSITORY}:${BRANCH}-${GITHUB_RUN_NUMBER}
+      - run: docker build . -t ${GITHUB_REPOSITORY}:${BRANCH}-dev -f Dockerfile-dev
+      - run: docker push ${GITHUB_REPOSITORY}:${BRANCH}-dev
+      - run: docker tag ${GITHUB_REPOSITORY}:${BRANCH}-dev ${GITHUB_REPOSITORY}:${BRANCH}-dev-${GITHUB_RUN_NUMBER}
+      - run: docker push ${GITHUB_REPOSITORY}:${BRANCH}-dev-${GITHUB_RUN_NUMBER}
