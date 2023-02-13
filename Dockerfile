@@ -7,7 +7,7 @@ RUN yum install -y epel-release \
 	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
 	&& yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm \
 	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
-	&& yum-config-manager --enable remi,remi-php81 \
+	&& yum-config-manager --enable remi,remi-php82 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \

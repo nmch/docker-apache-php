@@ -1,4 +1,4 @@
-FROM nmch/docker-apache-php:php81
+FROM nmch/docker-apache-php:php82
 
 RUN yum install -y php-pecl-xdebug \
 	&& yum install -y php-phpunit-* \
