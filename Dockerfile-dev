@@ -1,7 +1,7 @@
 FROM nmch/docker-apache-php:php81
 
 RUN yum install -y php-pecl-xdebug \
-	&& yum install -y php-phpunit-* \
+	&& yum install -y php-phpunit-PHPUnit \
 	&& yum install -y net-tools iproute \
 	&& yum clean all \
 	&& rm -rf /var/cache/yum \
