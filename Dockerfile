@@ -10,6 +10,7 @@ RUN yum install -y epel-release \
 	&& yum-config-manager --enable remi,remi-php81 \
 	&& yum-config-manager --disable remi-safe \
 	&& yum install -y nodejs yarn \
+	&& yum install -y gcc-c++ \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
 	&& yum install -y postgresql15 \
