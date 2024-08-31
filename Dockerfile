@@ -11,6 +11,7 @@ RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo \
 	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	&& yum-config-manager --enable remi,remi-php81 \
 	&& yum-config-manager --disable remi-safe \
+	&& yum install -y gcc-c++ \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
 	&& yum install -y postgresql15 \
