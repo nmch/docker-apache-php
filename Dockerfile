@@ -1,7 +1,9 @@
 FROM centos:7
 
-RUN yum install -y epel-release \
-	&& curl -sL https://rpm.nodesource.com/setup_16.x | bash - \
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo \
+    && sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo \
+    && sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo \
+	&& yum install -y epel-release \
 	&& curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
 	&& yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
 	&& yum install -y https://repo.ius.io/ius-release-el7.rpm \
@@ -9,7 +11,6 @@ RUN yum install -y epel-release \
 	&& yum install -y https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5-1.centos7.x86_64.rpm \
 	&& yum-config-manager --enable remi,remi-php81 \
 	&& yum-config-manager --disable remi-safe \
-	&& yum install -y nodejs yarn \
 	&& yum install -y which sudo python3-pip tmpwatch zip unzip git msmtp jq ghostscript wget \
 	&& yum install -y httpd24u httpd24u-mod_ssl \
 	&& yum install -y postgresql15 \
@@ -18,6 +19,8 @@ RUN yum install -y epel-release \
 	&& yum install -y nkf qpdf \
 	&& yum install -y ipa-gothic-fonts ipa-pgothic-fonts \
 	&& yum install -y https://github.com/dshearer/jobber/releases/download/v1.4.4/jobber-1.4.4-1.el8.x86_64.rpm \
+	&& curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash - \
+	&& yum install -y nodejs yarn \
 	&& yum update -y \
 	&& sed -i -e '/override_install_langs/s/$/,ja_JP.utf8/g' /etc/yum.conf \
 	&& yum -y reinstall glibc-common \
